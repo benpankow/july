@@ -1,0 +1,14 @@
+type: dagster_sling.SlingReplicationCollectionComponent
+
+attributes:
+  replications:
+    - path: replication.yaml
+
+requirements:
+  env:
+    - STRIPE_API_KEY
+    - SNOWFLAKE_ACCOUNT
+    - SNOWFLAKE_WAREHOUSE
+    - SNOWFLAKE_DATABASE
+    - SNOWFLAKE_USER
+    - SNOWFLAKE_PASSWORD

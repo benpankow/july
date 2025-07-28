@@ -1,0 +1,51 @@
+source:
+  conn: stripe
+  type: http
+  url: https://api.stripe.com/v1/{stream_name}
+  headers:
+    Authorization: "Bearer $STRIPE_API_KEY"
+  
+streams:
+  customers:
+    object: customers
+    columns:
+      id: string
+      email: string
+      created: timestamp
+      name: string
+      phone: string
+      address: json
+      metadata: json
+  
+  payments:
+    object: charges
+    columns:
+      id: string
+      amount: integer
+      currency: string
+      created: timestamp
+      customer: string
+      description: string
+      status: string
+      metadata: json
+  
+  subscriptions:
+    object: subscriptions
+    columns:
+      id: string
+      customer: string
+      status: string
+      created: timestamp
+      current_period_start: timestamp
+      current_period_end: timestamp
+      metadata: json
+
+target:
+  conn: snowflake
+  type: snowflake
+  account: $SNOWFLAKE_ACCOUNT
+  warehouse: $SNOWFLAKE_WAREHOUSE
+  database: $SNOWFLAKE_DATABASE
+  schema: stripe_data
+  user: $SNOWFLAKE_USER
+  password: $SNOWFLAKE_PASSWORD
