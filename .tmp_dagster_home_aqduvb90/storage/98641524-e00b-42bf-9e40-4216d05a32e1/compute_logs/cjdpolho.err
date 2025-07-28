@@ -1,0 +1,8 @@
+[32m2025-07-16 16:25:50 -0700[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 98641524-e00b-42bf-9e40-4216d05a32e1 - 17687 - LOGS_CAPTURED - Started capturing logs in process (pid: 17687).
+[32m2025-07-16 16:25:50 -0700[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 98641524-e00b-42bf-9e40-4216d05a32e1 - 17687 - asset_607736 - STEP_START - Started execution of step "asset_607736".
+[32m2025-07-16 16:25:50 -0700[0m - dagster - [34mINFO[0m - __ASSET_JOB - 98641524-e00b-42bf-9e40-4216d05a32e1 - asset_607736 - Asset THE TIME IS 2025-07-16T16:22:17.607736 loaded
+[32m2025-07-16 16:25:50 -0700[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 98641524-e00b-42bf-9e40-4216d05a32e1 - 17687 - asset_607736 - STEP_OUTPUT - Yielded output "result" of type "Any". (Type check passed).
+[32m2025-07-16 16:25:50 -0700[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 98641524-e00b-42bf-9e40-4216d05a32e1 - asset_607736 - Writing file at: /Users/ben/repos/components_demo/july/.tmp_dagster_home_aqduvb90/storage/asset_607736 using PickledObjectFilesystemIOManager...
+[32m2025-07-16 16:25:50 -0700[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 98641524-e00b-42bf-9e40-4216d05a32e1 - 17687 - asset_607736 - ASSET_MATERIALIZATION - Materialized value asset_607736.
+[32m2025-07-16 16:25:50 -0700[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 98641524-e00b-42bf-9e40-4216d05a32e1 - 17687 - asset_607736 - HANDLED_OUTPUT - Handled output "result" using IO manager "io_manager"
+[32m2025-07-16 16:25:50 -0700[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 98641524-e00b-42bf-9e40-4216d05a32e1 - 17687 - asset_607736 - STEP_SUCCESS - Finished execution of step "asset_607736" in 28ms.
