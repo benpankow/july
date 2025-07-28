@@ -1,0 +1,37 @@
+source:
+  type: stripe
+  config:
+    api_key: "${STRIPE_API_KEY}"
+    
+streams:
+  customers:
+    mode: full-refresh
+    target_table: customers
+    primary_key: id
+  
+  charges:
+    mode: incremental
+    target_table: charges  
+    primary_key: id
+    update_key: created
+    
+  subscriptions:
+    mode: full-refresh
+    target_table: subscriptions
+    primary_key: id
+    
+  invoices:
+    mode: incremental
+    target_table: invoices
+    primary_key: id
+    update_key: created
+
+target:
+  type: snowflake
+  config:
+    host: "${SNOWFLAKE_HOST}"
+    user: "${SNOWFLAKE_USER}"
+    password: "${SNOWFLAKE_PASSWORD}"
+    database: "${SNOWFLAKE_DATABASE}"
+    schema: stripe
+    warehouse: "${SNOWFLAKE_WAREHOUSE}"
