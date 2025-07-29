@@ -1,0 +1,21 @@
+source:
+  type: postgres
+  host: $POSTGRES_HOST
+  port: $POSTGRES_PORT
+  database: $POSTGRES_DATABASE
+  username: $POSTGRES_USERNAME
+  password: $POSTGRES_PASSWORD
+
+streams:
+  "*":
+    source_table: "*"
+    target_table: "raw.{stream_schema}.{stream_table}"
+
+target:
+  type: snowflake
+  account: $SNOWFLAKE_ACCOUNT
+  username: $SNOWFLAKE_USERNAME
+  password: $SNOWFLAKE_PASSWORD
+  warehouse: $SNOWFLAKE_WAREHOUSE
+  database: $SNOWFLAKE_DATABASE
+  schema: $SNOWFLAKE_SCHEMA
