@@ -1,0 +1,14 @@
+type: dagster.FunctionComponent
+
+attributes:
+  execution:
+    module: postgres_snowflake_sync
+    function: postgres_data
+  assets:
+    - key: postgres_data
+      group: sync
+      kinds:
+        - sling
+      tags:
+        source: postgres
+        destination: snowflake

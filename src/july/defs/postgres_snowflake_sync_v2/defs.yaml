@@ -1,0 +1,10 @@
+type: dagster.PythonScriptComponent
+
+attributes:
+  execution:
+    path: sync_script.py
+
+requirements:
+  env:
+    - POSTGRES_CONNECTION_STRING
+    - SNOWFLAKE_CONNECTION_STRING
