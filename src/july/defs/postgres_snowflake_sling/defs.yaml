@@ -1,0 +1,9 @@
+type: dagster.DefinitionsComponent
+
+attributes:
+  path: "postgres_snowflake_sync.py"
+
+requirements:
+  env:
+    - POSTGRES_CONNECTION_STRING
+    - SNOWFLAKE_CONNECTION_STRING
