@@ -1,0 +1,50 @@
+type: dagster_sling.SlingReplicationCollectionComponent
+
+attributes:
+  connections:
+    postgres_source:
+      type: postgres
+      host: ${POSTGRES_HOST}
+      port: ${POSTGRES_PORT}
+      user: ${POSTGRES_USER}
+      password: ${POSTGRES_PASSWORD}
+      database: ${POSTGRES_DATABASE}
+      
+    snowflake_target:
+      type: snowflake
+      host: ${SNOWFLAKE_HOST}
+      user: ${SNOWFLAKE_USER}
+      password: ${SNOWFLAKE_PASSWORD}
+      database: ${SNOWFLAKE_DATABASE}
+      schema: ${SNOWFLAKE_SCHEMA}
+      warehouse: ${SNOWFLAKE_WAREHOUSE}
+      role: ${SNOWFLAKE_ROLE}
+  
+  replications:
+    - path: replication.yaml
+  
+  asset_post_processors:
+    - target: "*"
+      operation: merge
+      attributes:
+        group_name: postgres_snowflake_sync
+        kinds: ["postgres", "snowflake", "sling"]
+        tags:
+          sync_type: postgres_to_snowflake
+          tool: sling
+        description: Data synchronized from Postgres to Snowflake using Sling
+
+requirements:
+  env:
+    - POSTGRES_HOST
+    - POSTGRES_PORT
+    - POSTGRES_USER
+    - POSTGRES_PASSWORD
+    - POSTGRES_DATABASE
+    - SNOWFLAKE_HOST
+    - SNOWFLAKE_USER
+    - SNOWFLAKE_PASSWORD
+    - SNOWFLAKE_DATABASE
+    - SNOWFLAKE_SCHEMA
+    - SNOWFLAKE_WAREHOUSE
+    - SNOWFLAKE_ROLE
