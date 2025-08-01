@@ -1,0 +1,84 @@
+type: dagster.PythonScriptComponent
+
+attributes:
+  execution:
+    mode: local
+  script: |
+    import os
+    import subprocess
+    from dagster import asset, AssetExecutionContext
+
+    @asset(
+        key=["postgres_to_snowflake", "sync"],
+        group_name="data_sync",
+        kinds={"sling", "etl"},
+        tags={
+            "source": "postgres",
+            "destination": "snowflake",
+            "tool": "sling"
+        },
+        description="Sync data from Postgres to Snowflake using Sling"
+    )
+    def postgres_to_snowflake_sync(context: AssetExecutionContext):
+        """
+        Sync data from Postgres to Snowflake using Sling.
+        This asset runs a Sling replication to move data between databases.
+        """
+        # Sling configuration
+        sling_config = {
+            "source": {
+                "conn": os.getenv("POSTGRES_CONNECTION_STRING"),
+                "type": "postgres"
+            },
+            "target": {
+                "conn": os.getenv("SNOWFLAKE_CONNECTION_STRING"), 
+                "type": "snowflake"
+            },
+            "defaults": {
+                "mode": "full-refresh",
+                "object": "{stream_schema}.{stream_table}"
+            },
+            "streams": {
+                # Configure specific tables/schemas to sync
+                "public.*": {
+                    "mode": "incremental",
+                    "primary_key": ["id"]
+                }
+            }
+        }
+        
+        # Write sling config to temporary file
+        import tempfile
+        import yaml
+        
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.yaml', delete=False) as f:
+            yaml.dump(sling_config, f)
+            config_path = f.name
+        
+        try:
+            # Run sling command
+            cmd = ["sling", "run", "-c", config_path]
+            context.log.info(f"Running Sling command: {' '.join(cmd)}")
+            
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            
+            context.log.info(f"Sling output: {result.stdout}")
+            
+            # Return some metadata about the sync
+            return {
+                "status": "success",
+                "config_used": sling_config,
+                "stdout": result.stdout
+            }
+            
+        except subprocess.CalledProcessError as e:
+            context.log.error(f"Sling command failed: {e.stderr}")
+            raise e
+        finally:
+            # Clean up temp file
+            os.unlink(config_path)
