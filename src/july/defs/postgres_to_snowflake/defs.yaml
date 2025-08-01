@@ -1,0 +1,9 @@
+type: dagster_sling.SlingReplicationCollectionComponent
+
+attributes:
+  replications:
+    - path: replication.yaml
+
+requirements:
+  env:
+    - POSTGRES_CONNECTION_URL

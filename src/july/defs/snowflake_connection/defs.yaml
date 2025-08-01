@@ -1,0 +1,20 @@
+type: dagster_snowflake.SnowflakeConnectionComponent
+
+attributes:
+  account: "${SNOWFLAKE_ACCOUNT}"
+  user: "${SNOWFLAKE_USER}"
+  password: "${SNOWFLAKE_PASSWORD}"
+  database: "${SNOWFLAKE_DATABASE}"
+  schema: "${SNOWFLAKE_SCHEMA}"
+  warehouse: "${SNOWFLAKE_WAREHOUSE}"
+  role: "${SNOWFLAKE_ROLE}"
+
+requirements:
+  env:
+    - SNOWFLAKE_ACCOUNT
+    - SNOWFLAKE_USER
+    - SNOWFLAKE_PASSWORD
+    - SNOWFLAKE_DATABASE
+    - SNOWFLAKE_SCHEMA
+    - SNOWFLAKE_WAREHOUSE
+    - SNOWFLAKE_ROLE

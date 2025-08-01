@@ -1,0 +1,15 @@
+source: postgres
+target: snowflake
+
+streams:
+  public.users:
+    object: users
+    primary_key: [id]
+  
+  public.orders:
+    object: orders
+    primary_key: [id]
+    
+  public.products:
+    object: products
+    primary_key: [id]
