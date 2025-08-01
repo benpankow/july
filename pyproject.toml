@@ -7,6 +7,7 @@ dependencies = [
     "dagster-dbt",
     "dagster-pipes",
     "dagster-shared",
+    "dagster-sling>=1!0",
     "dagster-snowflake",
     "dagster-test",
 ]
