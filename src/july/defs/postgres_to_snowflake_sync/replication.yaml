@@ -1,0 +1,14 @@
+source: POSTGRES
+target: SNOWFLAKE
+
+streams:
+  # Sync all tables from public schema in Postgres to Snowflake
+  "public.*":
+    # Target schema in Snowflake
+    target_schema: RAW
+    # Replication mode: full-refresh, incremental, snapshot
+    mode: full-refresh
+    # Optional: primary key for incremental mode
+    # primary_key: [id]
+    # Optional: update key for incremental mode  
+    # update_key: updated_at
