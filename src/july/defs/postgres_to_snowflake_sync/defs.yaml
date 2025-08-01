@@ -1,0 +1,20 @@
+type: dagster_sling.SlingReplicationCollectionComponent
+
+attributes:
+  replications:
+    - path: replication.yaml
+
+requirements:
+  env:
+    - POSTGRES_HOST
+    - POSTGRES_USER
+    - POSTGRES_PASSWORD
+    - POSTGRES_DATABASE
+    - POSTGRES_SCHEMA
+    - SNOWFLAKE_HOST
+    - SNOWFLAKE_USER
+    - SNOWFLAKE_PASSWORD
+    - SNOWFLAKE_DATABASE
+    - SNOWFLAKE_SCHEMA
+    - SNOWFLAKE_WAREHOUSE
+    - SNOWFLAKE_ROLE
