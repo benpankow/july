@@ -1,0 +1,12 @@
+source: POSTGRES_SOURCE
+target: SNOWFLAKE_TARGET
+
+defaults:
+  mode: full-refresh
+  object: table
+
+streams:
+  "public.*":
+    object: table
+    mode: full-refresh
+    primary_key: id
