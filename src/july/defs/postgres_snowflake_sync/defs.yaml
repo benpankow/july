@@ -1,0 +1,50 @@
+type: dagster.FunctionComponent
+
+attributes:
+  execution:
+    fn: .postgres_snowflake_sync.sync_postgres_to_snowflake
+  assets:
+    - key: postgres_tables_synced
+      group_name: data_sync
+      kinds:
+        - sling
+        - table
+      tags:
+        source: postgres
+        destination: snowflake
+        sync_type: full_refresh
+      description: "Synced tables from Postgres to Snowflake using Sling"
+    - key: postgres_users_table
+      group_name: data_sync
+      kinds:
+        - sling
+        - table
+      tags:
+        source: postgres
+        destination: snowflake
+        table_name: users
+      description: "Users table synced from Postgres to Snowflake"
+    - key: postgres_orders_table
+      group_name: data_sync
+      kinds:
+        - sling
+        - table
+      tags:
+        source: postgres
+        destination: snowflake
+        table_name: orders
+      description: "Orders table synced from Postgres to Snowflake"
+
+requirements:
+  env:
+    - POSTGRES_HOST
+    - POSTGRES_PORT
+    - POSTGRES_USER
+    - POSTGRES_PASSWORD
+    - POSTGRES_DATABASE
+    - SNOWFLAKE_ACCOUNT
+    - SNOWFLAKE_USER
+    - SNOWFLAKE_PASSWORD
+    - SNOWFLAKE_WAREHOUSE
+    - SNOWFLAKE_DATABASE
+    - SNOWFLAKE_SCHEMA
