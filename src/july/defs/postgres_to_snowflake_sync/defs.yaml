@@ -1,0 +1,37 @@
+type: dagster_sling.SlingReplicationCollectionComponent
+
+attributes:
+  connections:
+    - name: postgres_source
+      type: postgres
+      host: "${POSTGRES_HOST}"
+      port: "${POSTGRES_PORT}"
+      user: "${POSTGRES_USER}"
+      password: "${POSTGRES_PASSWORD}"
+      database: "${POSTGRES_DATABASE}"
+      schema: "${POSTGRES_SCHEMA}"
+    - name: snowflake_target
+      type: snowflake
+      host: "${SNOWFLAKE_ACCOUNT}.snowflakecomputing.com"
+      user: "${SNOWFLAKE_USER}"
+      password: "${SNOWFLAKE_PASSWORD}"
+      database: "${SNOWFLAKE_DATABASE}"
+      warehouse: "${SNOWFLAKE_WAREHOUSE}"
+      role: "${SNOWFLAKE_ROLE}"
+  replications:
+    - path: replication.yaml
+
+requirements:
+  env:
+    - POSTGRES_HOST
+    - POSTGRES_PORT
+    - POSTGRES_USER
+    - POSTGRES_PASSWORD
+    - POSTGRES_DATABASE
+    - POSTGRES_SCHEMA
+    - SNOWFLAKE_ACCOUNT
+    - SNOWFLAKE_USER
+    - SNOWFLAKE_PASSWORD
+    - SNOWFLAKE_DATABASE
+    - SNOWFLAKE_WAREHOUSE
+    - SNOWFLAKE_ROLE
