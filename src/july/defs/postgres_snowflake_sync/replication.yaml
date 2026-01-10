@@ -1,0 +1,15 @@
+source: postgres_source
+
+target: snowflake_target
+
+defaults:
+  mode: full-refresh
+  
+streams:
+  "public.*":
+    mode: incremental
+    primary_key: id
+    update_key: updated_at
+    sql: |
+      select * from {stream_schema}.{stream_table}
+      where updated_at >= '{last_value}'
